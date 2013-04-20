@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,57 +14,82 @@ using System.Runtime.InteropServices;
 
 namespace XBMC_WebBrowser
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
+        private String mainUrl;
+        private String mainTitle;
+        private String userDataFolder;
+        
+        private FormZoom formZoom;
+        private FormKeyboard formKeyboardNavi;
+        private FormKeyboard formKeyboardSearch;
+        private FormPopup formPopup;
+        private FormCursor formCursor;
+        private FormFavourites formFavourites;
+        private FormShortcuts formShortcuts;
+        
+        private bool showPopups;
+        private bool useCustomCursor;
+        
         private int acceleration;
         private int minMouseSpeed;
         private int maxMouseSpeed;
-        private long lastMousePositionChange;
-        private FormZoom formZoom;
-        private FormKeyboard formKeyboardNavi, formKeyboardSearch;
-        private FormPopup formPopup;
-        private FormCursor formCursor;
-        private String userDataFolder;
-        private bool showPopups;
         private int zoom;
         private int magnifierWidth;
+        private int magnifierHeigth;
+        private int customCursorSize;
+
+        private Point lastMousePosition;
+        private long lastMousePositionChange;
+        
         private ArrayList allKeys;
-        private String keyMapUp, keyMapDown, keyMapLeft, keyMapRight, keyMapUpLeft, keyMapUpRight, keyMapDownLeft, keyMapDownRight, keyMapClick, keyMapDoubleClick, keyMapZoomIn, keyMapZoomOut, keyMapMagnifier, keyMapNavigate, keyMapClose, keyMapKeyboard;
+        private String keyMapUp, keyMapDown, keyMapLeft, keyMapRight, keyMapUpLeft, keyMapUpRight, keyMapDownLeft, keyMapDownRight, keyMapClick, keyMapDoubleClick, keyMapZoomIn, keyMapZoomOut, keyMapMagnifier, keyMapNavigate, keyMapClose, keyMapKeyboard, keyMapFavourites, keyMapShortCuts, keyMapTAB, keyMapESC;
+        
         private const UInt32 MOUSEEVENTF_MOVE = 0x0001;
         private const UInt32 MOUSEEVENTF_LEFTDOWN = 0x0002;
         private const UInt32 MOUSEEVENTF_LEFTUP = 0x0004;
+        
         [DllImport("User32.dll")]
         private static extern void mouse_event(uint dwFlags, uint dx, uint dy, int dwData, uint dwExtraInf);
         [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(int vKey);
-        
-        public Form1(String[] args)
+
+        public FormMain(String[] args)
         {
             InitializeComponent();
-            lastMousePositionChange = 0;
-            
-            String url = "http://www.google.de";
-            minMouseSpeed = 1;
-            maxMouseSpeed = 20;
+
+            mainTitle = "";
+            mainUrl = "http://www.heise.de";
+            minMouseSpeed = 10;
+            maxMouseSpeed = 10;
             userDataFolder = "";
             zoom = 100;
-            magnifierWidth = 800;
+            magnifierWidth = 1280;
+            magnifierHeigth = 720;
             showPopups = false;
+            useCustomCursor = true;
+            customCursorSize = 64;
+            
             if (args.Length > 0)
             {
                 userDataFolder = args[0].Replace("\"", "");
-                url = Uri.UnescapeDataString(args[1]);
-                zoom = Convert.ToInt32(args[2]);
-                showPopups = (args[3] == "yes");
-                minMouseSpeed = Convert.ToInt32(args[4]);
-                maxMouseSpeed = Convert.ToInt32(args[5]);
-                magnifierWidth = Convert.ToInt32(args[6]);
+                mainTitle = args[1].Replace("\"", "");
+                mainUrl = Uri.UnescapeDataString(args[2]);
+                zoom = Convert.ToInt32(args[3]);
+                showPopups = (args[4] == "yes");
+                minMouseSpeed = Convert.ToInt32(args[5]);
+                maxMouseSpeed = Convert.ToInt32(args[6]);
+                String[] spl = args[7].Split('x');
+                magnifierWidth = Convert.ToInt32(spl[0]);
+                magnifierHeigth = Convert.ToInt32(spl[1]);
+                useCustomCursor = (args[8] == "true");
+                customCursorSize = Convert.ToInt32(args[9]);
             }
-            acceleration = minMouseSpeed;
+                            
             //When using Windows
             String file = userDataFolder + "\\keymap";
             String file2 = "C:\\xbmc_webbrowser\\keymap";
-            if (File.Exists(file)) 
+            if (File.Exists(file))
             {
                 importKeymap(file);
             }
@@ -84,13 +110,17 @@ namespace XBMC_WebBrowser
                 keyMapDownLeft = "NumPad1";
                 keyMapDownRight = "NumPad3";
                 keyMapClose = "NumPad0";
-                keyMapMagnifier = "Multiply";
+                keyMapMagnifier = "F1";
+                keyMapFavourites = "F2";
+                keyMapShortCuts = "F3";
                 keyMapNavigate = "Divide";
                 keyMapZoomIn = "Add";
                 keyMapZoomOut = "Subtract";
                 keyMapClick = "NumPad5";
                 keyMapDoubleClick = "Decimal";
-                keyMapKeyboard = "Pause";
+                keyMapKeyboard = "Multiply";
+                keyMapTAB = "";
+                keyMapESC = "";
             }
             allKeys = new ArrayList();
             allKeys.Add(keyMapUp);
@@ -109,24 +139,45 @@ namespace XBMC_WebBrowser
             allKeys.Add(keyMapClick);
             allKeys.Add(keyMapDoubleClick);
             allKeys.Add(keyMapKeyboard);
-            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            allKeys.Add(keyMapFavourites);
+            allKeys.Add(keyMapShortCuts);
+            allKeys.Add(keyMapTAB);
+            allKeys.Add(keyMapESC);
+            
             formZoom = null;
             formPopup = null;
             formKeyboardNavi = null;
             formKeyboardSearch = null;
-            timer1.Enabled = true;
-            webBrowser1.Navigate(url);
+            formFavourites = null;
+            formShortcuts = null;
+
+            lastMousePositionChange = 0;
+            acceleration = minMouseSpeed;
+            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            if (mainUrl.StartsWith("http://www.lovefilm.de/apps/catalog/module/player/player_popout.mhtml"))
+            {
+                webBrowser1.ScrollBarsEnabled = false;
+            }
+            if (useCustomCursor)
+            {
+                Cursor.Hide();
+                formCursor = new FormCursor();
+                String cursorPath = userDataFolder + "\\cursor.png";
+                if (File.Exists(cursorPath))
+                {
+                    formCursor.BackgroundImage = Image.FromFile(cursorPath);
+                }
+                formCursor.MinimumSize = new System.Drawing.Size(32, 32);
+                formCursor.Size = new System.Drawing.Size(customCursorSize, customCursorSize);
+                formCursor.Location = new Point(Cursor.Position.X + 1, Cursor.Position.Y + 1);
+                formCursor.Show();
+            }
+            webBrowser1.Navigate(mainUrl);
             SHDocVw.WebBrowser nativeBrowser = (SHDocVw.WebBrowser)webBrowser1.ActiveXInstance;
             nativeBrowser.NewWindow2 += nativeBrowser_NewWindow2;
             if (zoom != 100)
                 webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
             mouse_event(MOUSEEVENTF_MOVE, 1, 1, 0, 0);
-            //Cursor.Hide();
-            //formCursor = new FormCursor();
-            //formCursor.pictureBox1.BackgroundImage = Image.FromFile("D:\\mouseCursor.png");
-            //formCursor.Location = Cursor.Position;
-            //formCursor.Size = new System.Drawing.Size(64, 64);
-            //formCursor.Show();
         }
 
         private void importKeymap(String file)
@@ -170,6 +221,14 @@ namespace XBMC_WebBrowser
                         keyMapClose = spl[1].Trim();
                     else if (spl[0] == "ShowKeyboard")
                         keyMapKeyboard = spl[1].Trim();
+                    else if (spl[0] == "ShowFavourites")
+                        keyMapFavourites = spl[1].Trim();
+                    else if (spl[0] == "ShowShortcuts")
+                        keyMapShortCuts = spl[1].Trim();
+                    else if (spl[0] == "PressTAB")
+                        keyMapTAB = spl[1].Trim();
+                    else if (spl[0] == "PressESC")
+                        keyMapESC = spl[1].Trim();
 
                 }
             }
@@ -187,9 +246,22 @@ namespace XBMC_WebBrowser
                 acceleration = minMouseSpeed;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer_Tick(object sender, EventArgs e)
         {
-            //formCursor.Location = Cursor.Position;
+            if (useCustomCursor)
+                formCursor.Location = new Point(Cursor.Position.X + 1, Cursor.Position.Y + 1);
+            if (Cursor.Position != lastMousePosition && formZoom != null)
+            {
+                lastMousePosition = Cursor.Position;
+                formZoom.Hide();
+                Bitmap bmp = new Bitmap(formZoom.pictureBox1.Size.Width / 6, formZoom.pictureBox1.Size.Height / 6);
+                Graphics g = Graphics.FromImage(bmp);
+                g.CopyFromScreen(Cursor.Position.X - (formZoom.pictureBox1.Size.Width / 12), Cursor.Position.Y - (formZoom.pictureBox1.Size.Height / 12), 0, 0, new Size(formZoom.pictureBox1.Size.Width / 6, formZoom.pictureBox1.Size.Height / 6));
+                g.Dispose();
+                formZoom.Show();
+                formZoom.Location = new Point(Cursor.Position.X - formZoom.Width / 2, Cursor.Position.Y - formZoom.Height / 2);
+                formZoom.pictureBox1.BackgroundImage = bmp;
+            }
             try
             {
                 String keys = "";
@@ -205,7 +277,7 @@ namespace XBMC_WebBrowser
                     keys = keys.Substring(9);
                 if (keys.StartsWith("Menu "))
                     keys = keys.Substring(5);
-                
+
                 if (keys != "")
                 {
                     if (keys == keyMapLeft)
@@ -213,6 +285,8 @@ namespace XBMC_WebBrowser
                         setAcceleration();
                         Cursor.Position = new Point(Cursor.Position.X - acceleration, Cursor.Position.Y);
                         lastMousePositionChange = DateTime.Now.Ticks;
+                        if (Cursor.Position.X == 0)
+                            webBrowser1.Navigate("javascript:window.scrollBy(-40, 0);");
                     }
                     else if (keys == keyMapUp)
                     {
@@ -227,6 +301,8 @@ namespace XBMC_WebBrowser
                         setAcceleration();
                         Cursor.Position = new Point(Cursor.Position.X + acceleration, Cursor.Position.Y);
                         lastMousePositionChange = DateTime.Now.Ticks;
+                        if (Cursor.Position.X == this.Size.Width - 1)
+                            webBrowser1.Navigate("javascript:window.scrollBy(40, 0);");
                     }
                     else if (keys == keyMapDown)
                     {
@@ -243,6 +319,8 @@ namespace XBMC_WebBrowser
                         lastMousePositionChange = DateTime.Now.Ticks;
                         if (Cursor.Position.Y == 0)
                             webBrowser1.Navigate("javascript:window.scrollBy(0, -40);");
+                        if (Cursor.Position.X == 0)
+                            webBrowser1.Navigate("javascript:window.scrollBy(-40, 0);");
                     }
                     else if (keys == keyMapUpRight)
                     {
@@ -251,6 +329,8 @@ namespace XBMC_WebBrowser
                         lastMousePositionChange = DateTime.Now.Ticks;
                         if (Cursor.Position.Y == 0)
                             webBrowser1.Navigate("javascript:window.scrollBy(0, -40);");
+                        if (Cursor.Position.X == this.Size.Width - 1)
+                            webBrowser1.Navigate("javascript:window.scrollBy(40, 0);");
                     }
                     else if (keys == keyMapDownLeft)
                     {
@@ -259,6 +339,8 @@ namespace XBMC_WebBrowser
                         lastMousePositionChange = DateTime.Now.Ticks;
                         if (Cursor.Position.Y == this.Size.Height - 1)
                             webBrowser1.Navigate("javascript:window.scrollBy(0, 40);");
+                        if (Cursor.Position.X == 0)
+                            webBrowser1.Navigate("javascript:window.scrollBy(-40, 0);");
                     }
                     else if (keys == keyMapDownRight)
                     {
@@ -267,6 +349,8 @@ namespace XBMC_WebBrowser
                         lastMousePositionChange = DateTime.Now.Ticks;
                         if (Cursor.Position.Y == this.Size.Height - 1)
                             webBrowser1.Navigate("javascript:window.scrollBy(0, 40);");
+                        if (Cursor.Position.X == this.Size.Width - 1)
+                            webBrowser1.Navigate("javascript:window.scrollBy(40, 0);");
                     }
                     else if (keys == keyMapClick)
                     {
@@ -298,22 +382,30 @@ namespace XBMC_WebBrowser
                     {
                         SendKeys.Send("^{SUBTRACT}");
                     }
+                    else if (keys == keyMapTAB)
+                    {
+                        SendKeys.Send("{TAB}");
+                    }
+                    else if (keys == keyMapESC)
+                    {
+                        SendKeys.Send("{ESC}");
+                    }
                     else if (keys == keyMapMagnifier)
                     {
                         if (formZoom == null)
                         {
-                            this.Location = new Point(magnifierWidth, 0);
-                            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width - magnifierWidth, Screen.PrimaryScreen.Bounds.Height);
                             formZoom = new FormZoom();
+                            formZoom.Size = new System.Drawing.Size(magnifierWidth, magnifierHeigth);
+                            Bitmap bmp = new Bitmap(formZoom.pictureBox1.Size.Width / 6, formZoom.pictureBox1.Size.Height / 6);
+                            Graphics g = Graphics.FromImage(bmp);
+                            g.CopyFromScreen(Cursor.Position.X - (formZoom.pictureBox1.Size.Width / 12), Cursor.Position.Y - (formZoom.pictureBox1.Size.Height / 12), 0, 0, new Size(formZoom.pictureBox1.Size.Width / 6, formZoom.pictureBox1.Size.Height / 6));
+                            g.Dispose();
                             formZoom.Show();
-                            formZoom.Size = new System.Drawing.Size(magnifierWidth, Screen.PrimaryScreen.Bounds.Height);
-                            formZoom.Location = new Point(0, 0);
-                            formZoom.pictureBox1.Size = new System.Drawing.Size(formZoom.Size.Width - 2, formZoom.Size.Height - 2);
+                            formZoom.Location = new Point(Cursor.Position.X - formZoom.Width/2, Cursor.Position.Y - formZoom.Height/2);
+                            formZoom.pictureBox1.BackgroundImage = bmp;
                         }
                         else
                         {
-                            this.Location = new Point(0, 0);
-                            this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
                             formZoom.Close();
                             formZoom = null;
                         }
@@ -322,7 +414,7 @@ namespace XBMC_WebBrowser
                     {
                         if (formKeyboardNavi == null)
                         {
-                            formKeyboardNavi = new FormKeyboard("http://", allKeys);
+                            formKeyboardNavi = new FormKeyboard("Enter URL:", "http://", true, allKeys);
                             formKeyboardNavi.textBox1.SelectionStart = 7;
                             formKeyboardNavi.ShowDialog();
                             if (formKeyboardNavi.textBox1.Text != "")
@@ -342,7 +434,7 @@ namespace XBMC_WebBrowser
                     {
                         if (formKeyboardSearch == null)
                         {
-                            formKeyboardSearch = new FormKeyboard("", allKeys);
+                            formKeyboardSearch = new FormKeyboard("Enter text:", "", false, allKeys);
                             formKeyboardSearch.ShowDialog();
                             if (formKeyboardSearch.textBox1.Text != "")
                             {
@@ -358,6 +450,37 @@ namespace XBMC_WebBrowser
                             formKeyboardSearch = null;
                         }
                     }
+                    else if (keys == keyMapFavourites)
+                    {
+                        if (formFavourites == null)
+                        {
+                            formFavourites = new FormFavourites(userDataFolder);
+                            formFavourites.ShowDialog();
+                            mainTitle = ((ListBoxEntry)formFavourites.listBoxFavs.SelectedItem).title;
+                            importPageSettings(mainTitle);
+                            formFavourites = null;
+                        }
+                        else
+                        {
+                            formFavourites.Close();
+                            formFavourites = null;
+                        }
+                    }
+                    else if (keys == keyMapShortCuts)
+                    {
+                        if (formShortcuts == null)
+                        {
+                            formShortcuts = new FormShortcuts(userDataFolder, mainTitle, mainUrl, webBrowser1.Url.ToString(), allKeys);
+                            formShortcuts.ShowDialog();
+                            webBrowser1.Navigate(((ListBoxEntry)formShortcuts.listBoxFavs.SelectedItem).url);
+                            formShortcuts = null;
+                        }
+                        else
+                        {
+                            formShortcuts.Close();
+                            formShortcuts = null;
+                        }
+                    }
                 }
             }
             catch
@@ -365,30 +488,40 @@ namespace XBMC_WebBrowser
             }
         }
 
-        private void timerZoom_Tick(object sender, EventArgs e)
+        public void importPageSettings(String title)
         {
-            try
+            if (Directory.Exists(userDataFolder))
             {
-                if (formZoom!=null)
+                StreamReader str = new StreamReader(userDataFolder + "\\sites\\" + title + ".link");
+                String line;
+                while ((line = str.ReadLine()) != null)
                 {
-                    Bitmap bmp = new Bitmap(formZoom.pictureBox1.Size.Width / 6, formZoom.pictureBox1.Size.Height / 6);
-                    Graphics g = Graphics.FromImage(bmp);
-                    g.CopyFromScreen(Cursor.Position.X - (formZoom.pictureBox1.Size.Width / 12), Cursor.Position.Y - (formZoom.pictureBox1.Size.Height / 12), 0, 0, new Size(formZoom.pictureBox1.Size.Width / 6, formZoom.pictureBox1.Size.Height / 6));
-                    g.Dispose();
-                    formZoom.pictureBox1.BackgroundImage = bmp;
+                    if (line.Contains("="))
+                    {
+                        String entry = line.Substring(0, line.IndexOf("="));
+                        String content = line.Substring(line.IndexOf("=") + 1);
+                        if (entry == "url")
+                            mainUrl = content.Trim();
+                        else if (entry == "zoom")
+                            zoom = Convert.ToInt32(content.Trim());
+                        else if (entry == "showPopups")
+                            showPopups = (content.Trim() == "yes");
+                    }
                 }
-            }
-            catch
-            {
+                webBrowser1.Navigate(mainUrl);
+                webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
             }
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            webBrowser1.Visible = true;
-            ((SHDocVw.WebBrowser)webBrowser1.ActiveXInstance).ExecWB(SHDocVw.OLECMDID.OLECMDID_OPTICAL_ZOOM, SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, zoom, IntPtr.Zero);
-            webBrowser1.DocumentCompleted -= webBrowser1_DocumentCompleted;
-            webBrowser1.Navigate("javascript:window.scrollBy(0,-500);");
+            if (e.Url.AbsolutePath == webBrowser1.Url.AbsolutePath)
+            {
+                System.Threading.Thread.Sleep(100);
+                ((SHDocVw.WebBrowser)webBrowser1.ActiveXInstance).ExecWB(SHDocVw.OLECMDID.OLECMDID_OPTICAL_ZOOM, SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, zoom, IntPtr.Zero);
+                webBrowser1.DocumentCompleted -= webBrowser1_DocumentCompleted;
+                webBrowser1.Navigate("javascript:window.scrollBy(0,-500);");
+            }
         }
 
         void nativeBrowser_NewWindow2(ref object ppDisp, ref bool Cancel)

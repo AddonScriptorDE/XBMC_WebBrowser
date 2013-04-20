@@ -63,9 +63,19 @@ namespace XBMC_WebBrowser.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap xbmc_browser {
+        internal static System.Drawing.Bitmap mouseCursor {
             get {
-                object obj = ResourceManager.GetObject("xbmc_browser", resourceCulture);
+                object obj = ResourceManager.GetObject("mouseCursor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mouseCursor1 {
+            get {
+                object obj = ResourceManager.GetObject("mouseCursor1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

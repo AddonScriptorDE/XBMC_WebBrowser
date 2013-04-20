@@ -1,6 +1,6 @@
 ﻿namespace XBMC_WebBrowser
 {
-    partial class FormZoom
+    partial class FormShortcuts
     {
         /// <summary>
         /// Required designer variable.
@@ -28,40 +28,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.listBoxFavs = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // listBoxFavs
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.listBoxFavs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(1, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(598, 398);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.listBoxFavs.BackColor = System.Drawing.Color.White;
+            this.listBoxFavs.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxFavs.FormattingEnabled = true;
+            this.listBoxFavs.ItemHeight = 55;
+            this.listBoxFavs.Location = new System.Drawing.Point(12, 12);
+            this.listBoxFavs.Name = "listBoxFavs";
+            this.listBoxFavs.Size = new System.Drawing.Size(476, 554);
+            this.listBoxFavs.TabIndex = 1;
+            this.listBoxFavs.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBoxFavs_KeyDown);
             // 
-            // FormZoom
+            // FormShortcuts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 400);
-            this.Controls.Add(this.pictureBox1);
+            this.BackColor = System.Drawing.Color.Snow;
+            this.ClientSize = new System.Drawing.Size(500, 600);
+            this.Controls.Add(this.listBoxFavs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FormZoom";
+            this.Name = "FormShortcuts";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormZoom";
-            this.TopMost = true;
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Text = "FormShortcuts";
+            this.TransparencyKey = System.Drawing.Color.Snow;
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        public System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.ListBox listBoxFavs;
     }
 }

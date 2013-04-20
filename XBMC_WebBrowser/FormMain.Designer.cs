@@ -1,6 +1,6 @@
 ﻿namespace XBMC_WebBrowser
 {
-    partial class Form1
+    partial class FormMain
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -29,21 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timerZoom = new System.Windows.Forms.Timer(this.components);
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 20;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // timerZoom
-            // 
-            this.timerZoom.Enabled = true;
-            this.timerZoom.Interval = 500;
-            this.timerZoom.Tick += new System.EventHandler(this.timerZoom_Tick);
             // 
             // webBrowser1
             // 
@@ -58,7 +46,13 @@
             this.webBrowser1.Size = new System.Drawing.Size(800, 600);
             this.webBrowser1.TabIndex = 2;
             // 
-            // Form1
+            // timerMain
+            // 
+            this.timerMain.Enabled = true;
+            this.timerMain.Interval = 20;
+            this.timerMain.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -66,7 +60,7 @@
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.webBrowser1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
+            this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -75,9 +69,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timerZoom;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.Timer timerMain;
     }
 }
 

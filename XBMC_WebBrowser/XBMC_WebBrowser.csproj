@@ -32,6 +32,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,17 +53,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="FormCursor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormCursor.Designer.cs">
       <DependentUpon>FormCursor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormFavourites.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFavourites.Designer.cs">
+      <DependentUpon>FormFavourites.cs</DependentUpon>
     </Compile>
     <Compile Include="FormKeyboard.cs">
       <SubType>Form</SubType>
@@ -69,25 +83,38 @@
     <Compile Include="FormPopup.Designer.cs">
       <DependentUpon>FormPopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormShortcuts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShortcuts.Designer.cs">
+      <DependentUpon>FormShortcuts.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormZoom.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormZoom.Designer.cs">
       <DependentUpon>FormZoom.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListBoxEntry.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCursor.resx">
       <DependentUpon>FormCursor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFavourites.resx">
+      <DependentUpon>FormFavourites.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormKeyboard.resx">
       <DependentUpon>FormKeyboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPopup.resx">
       <DependentUpon>FormPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormShortcuts.resx">
+      <DependentUpon>FormShortcuts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormZoom.resx">
       <DependentUpon>FormZoom.cs</DependentUpon>
@@ -116,9 +143,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\xbmc_browser.png" />
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="AxSHDocVw">
       <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -136,6 +160,10 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\mouseCursor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.button0 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -71,16 +70,17 @@
             this.buttonEnter = new System.Windows.Forms.Button();
             this.buttonDot = new System.Windows.Forms.Button();
             this.buttonComma = new System.Windows.Forms.Button();
-            this.buttonDivide = new System.Windows.Forms.Button();
+            this.buttonDoubleDot = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.buttonSlash = new System.Windows.Forms.Button();
+            this.labelTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button0
             // 
             this.button0.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button0.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button0.Location = new System.Drawing.Point(12, 66);
+            this.button0.Location = new System.Drawing.Point(12, 96);
             this.button0.Name = "button0";
             this.button0.Size = new System.Drawing.Size(70, 70);
             this.button0.TabIndex = 1;
@@ -89,13 +89,15 @@
             this.button0.UseVisualStyleBackColor = false;
             this.button0.Click += new System.EventHandler(this.button_Click);
             this.button0.Enter += new System.EventHandler(this.button_Enter);
+            this.button0.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.button0.Leave += new System.EventHandler(this.button_Leave);
+            this.button0.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(88, 66);
+            this.button1.Location = new System.Drawing.Point(88, 96);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(70, 70);
             this.button1.TabIndex = 2;
@@ -104,13 +106,15 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button_Click);
             this.button1.Enter += new System.EventHandler(this.button_Enter);
+            this.button1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.button1.Leave += new System.EventHandler(this.button_Leave);
+            this.button1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(240, 66);
+            this.button3.Location = new System.Drawing.Point(240, 96);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(70, 70);
             this.button3.TabIndex = 4;
@@ -119,13 +123,15 @@
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button_Click);
             this.button3.Enter += new System.EventHandler(this.button_Enter);
+            this.button3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.button3.Leave += new System.EventHandler(this.button_Leave);
+            this.button3.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(164, 66);
+            this.button2.Location = new System.Drawing.Point(164, 96);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(70, 70);
             this.button2.TabIndex = 3;
@@ -134,13 +140,15 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button_Click);
             this.button2.Enter += new System.EventHandler(this.button_Enter);
+            this.button2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.button2.Leave += new System.EventHandler(this.button_Leave);
+            this.button2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(316, 66);
+            this.button4.Location = new System.Drawing.Point(316, 96);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(70, 70);
             this.button4.TabIndex = 5;
@@ -149,13 +157,15 @@
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button_Click);
             this.button4.Enter += new System.EventHandler(this.button_Enter);
+            this.button4.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.button4.Leave += new System.EventHandler(this.button_Leave);
+            this.button4.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // button9
             // 
             this.button9.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.Location = new System.Drawing.Point(696, 66);
+            this.button9.Location = new System.Drawing.Point(696, 96);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(70, 70);
             this.button9.TabIndex = 10;
@@ -164,13 +174,15 @@
             this.button9.UseVisualStyleBackColor = false;
             this.button9.Click += new System.EventHandler(this.button_Click);
             this.button9.Enter += new System.EventHandler(this.button_Enter);
+            this.button9.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.button9.Leave += new System.EventHandler(this.button_Leave);
+            this.button9.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // button8
             // 
             this.button8.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.Location = new System.Drawing.Point(620, 66);
+            this.button8.Location = new System.Drawing.Point(620, 96);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(70, 70);
             this.button8.TabIndex = 9;
@@ -179,13 +191,15 @@
             this.button8.UseVisualStyleBackColor = false;
             this.button8.Click += new System.EventHandler(this.button_Click);
             this.button8.Enter += new System.EventHandler(this.button_Enter);
+            this.button8.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.button8.Leave += new System.EventHandler(this.button_Leave);
+            this.button8.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // button7
             // 
             this.button7.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(544, 66);
+            this.button7.Location = new System.Drawing.Point(544, 96);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(70, 70);
             this.button7.TabIndex = 8;
@@ -194,13 +208,15 @@
             this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.button_Click);
             this.button7.Enter += new System.EventHandler(this.button_Enter);
+            this.button7.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.button7.Leave += new System.EventHandler(this.button_Leave);
+            this.button7.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // button6
             // 
             this.button6.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(468, 66);
+            this.button6.Location = new System.Drawing.Point(468, 96);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(70, 70);
             this.button6.TabIndex = 7;
@@ -209,13 +225,15 @@
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button_Click);
             this.button6.Enter += new System.EventHandler(this.button_Enter);
+            this.button6.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.button6.Leave += new System.EventHandler(this.button_Leave);
+            this.button6.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // button5
             // 
             this.button5.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(392, 66);
+            this.button5.Location = new System.Drawing.Point(392, 96);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(70, 70);
             this.button5.TabIndex = 6;
@@ -224,13 +242,15 @@
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button_Click);
             this.button5.Enter += new System.EventHandler(this.button_Enter);
+            this.button5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.button5.Leave += new System.EventHandler(this.button_Leave);
+            this.button5.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonJ
             // 
             this.buttonJ.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonJ.Location = new System.Drawing.Point(696, 142);
+            this.buttonJ.Location = new System.Drawing.Point(696, 172);
             this.buttonJ.Name = "buttonJ";
             this.buttonJ.Size = new System.Drawing.Size(70, 70);
             this.buttonJ.TabIndex = 20;
@@ -239,13 +259,15 @@
             this.buttonJ.UseVisualStyleBackColor = false;
             this.buttonJ.Click += new System.EventHandler(this.button_Click);
             this.buttonJ.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonJ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonJ.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonJ.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonI
             // 
             this.buttonI.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonI.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonI.Location = new System.Drawing.Point(620, 142);
+            this.buttonI.Location = new System.Drawing.Point(620, 172);
             this.buttonI.Name = "buttonI";
             this.buttonI.Size = new System.Drawing.Size(70, 70);
             this.buttonI.TabIndex = 19;
@@ -254,13 +276,15 @@
             this.buttonI.UseVisualStyleBackColor = false;
             this.buttonI.Click += new System.EventHandler(this.button_Click);
             this.buttonI.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonI.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonI.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonH
             // 
             this.buttonH.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonH.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonH.Location = new System.Drawing.Point(544, 142);
+            this.buttonH.Location = new System.Drawing.Point(544, 172);
             this.buttonH.Name = "buttonH";
             this.buttonH.Size = new System.Drawing.Size(70, 70);
             this.buttonH.TabIndex = 18;
@@ -269,13 +293,15 @@
             this.buttonH.UseVisualStyleBackColor = false;
             this.buttonH.Click += new System.EventHandler(this.button_Click);
             this.buttonH.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonH.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonH.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonH.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonG
             // 
             this.buttonG.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonG.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonG.Location = new System.Drawing.Point(468, 142);
+            this.buttonG.Location = new System.Drawing.Point(468, 172);
             this.buttonG.Name = "buttonG";
             this.buttonG.Size = new System.Drawing.Size(70, 70);
             this.buttonG.TabIndex = 17;
@@ -284,13 +310,15 @@
             this.buttonG.UseVisualStyleBackColor = false;
             this.buttonG.Click += new System.EventHandler(this.button_Click);
             this.buttonG.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonG.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonG.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonG.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonF
             // 
             this.buttonF.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonF.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonF.Location = new System.Drawing.Point(392, 142);
+            this.buttonF.Location = new System.Drawing.Point(392, 172);
             this.buttonF.Name = "buttonF";
             this.buttonF.Size = new System.Drawing.Size(70, 70);
             this.buttonF.TabIndex = 16;
@@ -299,13 +327,15 @@
             this.buttonF.UseVisualStyleBackColor = false;
             this.buttonF.Click += new System.EventHandler(this.button_Click);
             this.buttonF.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonF.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonF.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonF.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonE
             // 
             this.buttonE.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonE.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonE.Location = new System.Drawing.Point(316, 142);
+            this.buttonE.Location = new System.Drawing.Point(316, 172);
             this.buttonE.Name = "buttonE";
             this.buttonE.Size = new System.Drawing.Size(70, 70);
             this.buttonE.TabIndex = 15;
@@ -314,13 +344,15 @@
             this.buttonE.UseVisualStyleBackColor = false;
             this.buttonE.Click += new System.EventHandler(this.button_Click);
             this.buttonE.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonE.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonE.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonE.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonD
             // 
             this.buttonD.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonD.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonD.Location = new System.Drawing.Point(240, 142);
+            this.buttonD.Location = new System.Drawing.Point(240, 172);
             this.buttonD.Name = "buttonD";
             this.buttonD.Size = new System.Drawing.Size(70, 70);
             this.buttonD.TabIndex = 14;
@@ -329,13 +361,15 @@
             this.buttonD.UseVisualStyleBackColor = false;
             this.buttonD.Click += new System.EventHandler(this.button_Click);
             this.buttonD.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonD.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonD.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonC
             // 
             this.buttonC.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonC.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonC.Location = new System.Drawing.Point(164, 142);
+            this.buttonC.Location = new System.Drawing.Point(164, 172);
             this.buttonC.Name = "buttonC";
             this.buttonC.Size = new System.Drawing.Size(70, 70);
             this.buttonC.TabIndex = 13;
@@ -344,13 +378,15 @@
             this.buttonC.UseVisualStyleBackColor = false;
             this.buttonC.Click += new System.EventHandler(this.button_Click);
             this.buttonC.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonC.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonC.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonB
             // 
             this.buttonB.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonB.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonB.Location = new System.Drawing.Point(88, 142);
+            this.buttonB.Location = new System.Drawing.Point(88, 172);
             this.buttonB.Name = "buttonB";
             this.buttonB.Size = new System.Drawing.Size(70, 70);
             this.buttonB.TabIndex = 12;
@@ -359,13 +395,15 @@
             this.buttonB.UseVisualStyleBackColor = false;
             this.buttonB.Click += new System.EventHandler(this.button_Click);
             this.buttonB.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonB.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonA
             // 
             this.buttonA.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonA.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonA.Location = new System.Drawing.Point(12, 142);
+            this.buttonA.Location = new System.Drawing.Point(12, 172);
             this.buttonA.Name = "buttonA";
             this.buttonA.Size = new System.Drawing.Size(70, 70);
             this.buttonA.TabIndex = 11;
@@ -374,13 +412,15 @@
             this.buttonA.UseVisualStyleBackColor = false;
             this.buttonA.Click += new System.EventHandler(this.button_Click);
             this.buttonA.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonA.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonA.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonA.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonT
             // 
             this.buttonT.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonT.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonT.Location = new System.Drawing.Point(696, 218);
+            this.buttonT.Location = new System.Drawing.Point(696, 248);
             this.buttonT.Name = "buttonT";
             this.buttonT.Size = new System.Drawing.Size(70, 70);
             this.buttonT.TabIndex = 30;
@@ -389,13 +429,15 @@
             this.buttonT.UseVisualStyleBackColor = false;
             this.buttonT.Click += new System.EventHandler(this.button_Click);
             this.buttonT.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonT.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonT.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonS
             // 
             this.buttonS.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonS.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonS.Location = new System.Drawing.Point(620, 218);
+            this.buttonS.Location = new System.Drawing.Point(620, 248);
             this.buttonS.Name = "buttonS";
             this.buttonS.Size = new System.Drawing.Size(70, 70);
             this.buttonS.TabIndex = 29;
@@ -404,13 +446,15 @@
             this.buttonS.UseVisualStyleBackColor = false;
             this.buttonS.Click += new System.EventHandler(this.button_Click);
             this.buttonS.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonS.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonS.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonS.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonR
             // 
             this.buttonR.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonR.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonR.Location = new System.Drawing.Point(544, 218);
+            this.buttonR.Location = new System.Drawing.Point(544, 248);
             this.buttonR.Name = "buttonR";
             this.buttonR.Size = new System.Drawing.Size(70, 70);
             this.buttonR.TabIndex = 28;
@@ -419,13 +463,15 @@
             this.buttonR.UseVisualStyleBackColor = false;
             this.buttonR.Click += new System.EventHandler(this.button_Click);
             this.buttonR.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonR.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonR.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonR.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonQ
             // 
             this.buttonQ.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonQ.Location = new System.Drawing.Point(468, 218);
+            this.buttonQ.Location = new System.Drawing.Point(468, 248);
             this.buttonQ.Name = "buttonQ";
             this.buttonQ.Size = new System.Drawing.Size(70, 70);
             this.buttonQ.TabIndex = 27;
@@ -434,13 +480,15 @@
             this.buttonQ.UseVisualStyleBackColor = false;
             this.buttonQ.Click += new System.EventHandler(this.button_Click);
             this.buttonQ.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonQ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonQ.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonQ.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonP
             // 
             this.buttonP.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonP.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonP.Location = new System.Drawing.Point(392, 218);
+            this.buttonP.Location = new System.Drawing.Point(392, 248);
             this.buttonP.Name = "buttonP";
             this.buttonP.Size = new System.Drawing.Size(70, 70);
             this.buttonP.TabIndex = 26;
@@ -449,13 +497,15 @@
             this.buttonP.UseVisualStyleBackColor = false;
             this.buttonP.Click += new System.EventHandler(this.button_Click);
             this.buttonP.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonP.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonP.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonO
             // 
             this.buttonO.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonO.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonO.Location = new System.Drawing.Point(316, 218);
+            this.buttonO.Location = new System.Drawing.Point(316, 248);
             this.buttonO.Name = "buttonO";
             this.buttonO.Size = new System.Drawing.Size(70, 70);
             this.buttonO.TabIndex = 25;
@@ -464,13 +514,15 @@
             this.buttonO.UseVisualStyleBackColor = false;
             this.buttonO.Click += new System.EventHandler(this.button_Click);
             this.buttonO.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonO.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonO.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonO.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonN
             // 
             this.buttonN.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonN.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonN.Location = new System.Drawing.Point(240, 218);
+            this.buttonN.Location = new System.Drawing.Point(240, 248);
             this.buttonN.Name = "buttonN";
             this.buttonN.Size = new System.Drawing.Size(70, 70);
             this.buttonN.TabIndex = 24;
@@ -479,13 +531,15 @@
             this.buttonN.UseVisualStyleBackColor = false;
             this.buttonN.Click += new System.EventHandler(this.button_Click);
             this.buttonN.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonN.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonN.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonM
             // 
             this.buttonM.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonM.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonM.Location = new System.Drawing.Point(164, 218);
+            this.buttonM.Location = new System.Drawing.Point(164, 248);
             this.buttonM.Name = "buttonM";
             this.buttonM.Size = new System.Drawing.Size(70, 70);
             this.buttonM.TabIndex = 23;
@@ -494,13 +548,15 @@
             this.buttonM.UseVisualStyleBackColor = false;
             this.buttonM.Click += new System.EventHandler(this.button_Click);
             this.buttonM.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonM.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonM.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonM.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonL
             // 
             this.buttonL.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonL.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonL.Location = new System.Drawing.Point(88, 218);
+            this.buttonL.Location = new System.Drawing.Point(88, 248);
             this.buttonL.Name = "buttonL";
             this.buttonL.Size = new System.Drawing.Size(70, 70);
             this.buttonL.TabIndex = 22;
@@ -509,13 +565,15 @@
             this.buttonL.UseVisualStyleBackColor = false;
             this.buttonL.Click += new System.EventHandler(this.button_Click);
             this.buttonL.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonL.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonL.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonK
             // 
             this.buttonK.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonK.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonK.Location = new System.Drawing.Point(12, 218);
+            this.buttonK.Location = new System.Drawing.Point(12, 248);
             this.buttonK.Name = "buttonK";
             this.buttonK.Size = new System.Drawing.Size(70, 70);
             this.buttonK.TabIndex = 21;
@@ -524,13 +582,15 @@
             this.buttonK.UseVisualStyleBackColor = false;
             this.buttonK.Click += new System.EventHandler(this.button_Click);
             this.buttonK.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonK.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonK.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonK.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonSpace
             // 
             this.buttonSpace.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonSpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSpace.Location = new System.Drawing.Point(240, 370);
+            this.buttonSpace.Location = new System.Drawing.Point(240, 400);
             this.buttonSpace.Name = "buttonSpace";
             this.buttonSpace.Size = new System.Drawing.Size(298, 70);
             this.buttonSpace.TabIndex = 41;
@@ -539,13 +599,15 @@
             this.buttonSpace.UseVisualStyleBackColor = false;
             this.buttonSpace.Click += new System.EventHandler(this.button_Click);
             this.buttonSpace.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonSpace.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonSpace.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonSpace.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonZ
             // 
             this.buttonZ.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonZ.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonZ.Location = new System.Drawing.Point(392, 294);
+            this.buttonZ.Location = new System.Drawing.Point(392, 324);
             this.buttonZ.Name = "buttonZ";
             this.buttonZ.Size = new System.Drawing.Size(70, 70);
             this.buttonZ.TabIndex = 36;
@@ -554,13 +616,15 @@
             this.buttonZ.UseVisualStyleBackColor = false;
             this.buttonZ.Click += new System.EventHandler(this.button_Click);
             this.buttonZ.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonZ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonZ.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonZ.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonY
             // 
             this.buttonY.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonY.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonY.Location = new System.Drawing.Point(316, 294);
+            this.buttonY.Location = new System.Drawing.Point(316, 324);
             this.buttonY.Name = "buttonY";
             this.buttonY.Size = new System.Drawing.Size(70, 70);
             this.buttonY.TabIndex = 35;
@@ -569,13 +633,15 @@
             this.buttonY.UseVisualStyleBackColor = false;
             this.buttonY.Click += new System.EventHandler(this.button_Click);
             this.buttonY.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonY.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonY.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonX
             // 
             this.buttonX.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonX.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonX.Location = new System.Drawing.Point(240, 294);
+            this.buttonX.Location = new System.Drawing.Point(240, 324);
             this.buttonX.Name = "buttonX";
             this.buttonX.Size = new System.Drawing.Size(70, 70);
             this.buttonX.TabIndex = 34;
@@ -584,13 +650,15 @@
             this.buttonX.UseVisualStyleBackColor = false;
             this.buttonX.Click += new System.EventHandler(this.button_Click);
             this.buttonX.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonX.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonX.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonW
             // 
             this.buttonW.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonW.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonW.Location = new System.Drawing.Point(164, 294);
+            this.buttonW.Location = new System.Drawing.Point(164, 324);
             this.buttonW.Name = "buttonW";
             this.buttonW.Size = new System.Drawing.Size(70, 70);
             this.buttonW.TabIndex = 33;
@@ -599,13 +667,15 @@
             this.buttonW.UseVisualStyleBackColor = false;
             this.buttonW.Click += new System.EventHandler(this.button_Click);
             this.buttonW.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonW.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonW.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonW.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonV
             // 
             this.buttonV.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonV.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonV.Location = new System.Drawing.Point(88, 294);
+            this.buttonV.Location = new System.Drawing.Point(88, 324);
             this.buttonV.Name = "buttonV";
             this.buttonV.Size = new System.Drawing.Size(70, 70);
             this.buttonV.TabIndex = 32;
@@ -614,13 +684,15 @@
             this.buttonV.UseVisualStyleBackColor = false;
             this.buttonV.Click += new System.EventHandler(this.button_Click);
             this.buttonV.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonV.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonV.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonU
             // 
             this.buttonU.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonU.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonU.Location = new System.Drawing.Point(12, 294);
+            this.buttonU.Location = new System.Drawing.Point(12, 324);
             this.buttonU.Name = "buttonU";
             this.buttonU.Size = new System.Drawing.Size(70, 70);
             this.buttonU.TabIndex = 31;
@@ -629,13 +701,15 @@
             this.buttonU.UseVisualStyleBackColor = false;
             this.buttonU.Click += new System.EventHandler(this.button_Click);
             this.buttonU.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonU.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonU.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonU.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonRemove
             // 
             this.buttonRemove.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemove.Location = new System.Drawing.Point(12, 370);
+            this.buttonRemove.Location = new System.Drawing.Point(12, 400);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(222, 70);
             this.buttonRemove.TabIndex = 40;
@@ -644,13 +718,15 @@
             this.buttonRemove.UseVisualStyleBackColor = false;
             this.buttonRemove.Click += new System.EventHandler(this.button_Click);
             this.buttonRemove.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonRemove.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonRemove.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonRemove.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonRemoveAll
             // 
             this.buttonRemoveAll.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonRemoveAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemoveAll.Location = new System.Drawing.Point(544, 370);
+            this.buttonRemoveAll.Location = new System.Drawing.Point(544, 400);
             this.buttonRemoveAll.Name = "buttonRemoveAll";
             this.buttonRemoveAll.Size = new System.Drawing.Size(221, 70);
             this.buttonRemoveAll.TabIndex = 42;
@@ -659,13 +735,15 @@
             this.buttonRemoveAll.UseVisualStyleBackColor = false;
             this.buttonRemoveAll.Click += new System.EventHandler(this.button_Click);
             this.buttonRemoveAll.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonRemoveAll.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonRemoveAll.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonRemoveAll.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonEnter
             // 
             this.buttonEnter.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonEnter.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEnter.Location = new System.Drawing.Point(13, 446);
+            this.buttonEnter.Location = new System.Drawing.Point(13, 476);
             this.buttonEnter.Name = "buttonEnter";
             this.buttonEnter.Size = new System.Drawing.Size(753, 70);
             this.buttonEnter.TabIndex = 43;
@@ -674,13 +752,15 @@
             this.buttonEnter.UseVisualStyleBackColor = false;
             this.buttonEnter.Click += new System.EventHandler(this.button_Click);
             this.buttonEnter.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonEnter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonEnter.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonEnter.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonDot
             // 
             this.buttonDot.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonDot.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDot.Location = new System.Drawing.Point(468, 294);
+            this.buttonDot.Location = new System.Drawing.Point(468, 324);
             this.buttonDot.Name = "buttonDot";
             this.buttonDot.Size = new System.Drawing.Size(70, 70);
             this.buttonDot.TabIndex = 37;
@@ -689,13 +769,15 @@
             this.buttonDot.UseVisualStyleBackColor = false;
             this.buttonDot.Click += new System.EventHandler(this.button_Click);
             this.buttonDot.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonDot.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonDot.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonDot.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // buttonComma
             // 
             this.buttonComma.BackColor = System.Drawing.Color.WhiteSmoke;
             this.buttonComma.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonComma.Location = new System.Drawing.Point(544, 294);
+            this.buttonComma.Location = new System.Drawing.Point(544, 324);
             this.buttonComma.Name = "buttonComma";
             this.buttonComma.Size = new System.Drawing.Size(70, 70);
             this.buttonComma.TabIndex = 38;
@@ -704,28 +786,32 @@
             this.buttonComma.UseVisualStyleBackColor = false;
             this.buttonComma.Click += new System.EventHandler(this.button_Click);
             this.buttonComma.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonComma.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
             this.buttonComma.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonComma.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
-            // buttonDivide
+            // buttonDoubleDot
             // 
-            this.buttonDivide.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonDivide.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDivide.Location = new System.Drawing.Point(620, 294);
-            this.buttonDivide.Name = "buttonDivide";
-            this.buttonDivide.Size = new System.Drawing.Size(70, 70);
-            this.buttonDivide.TabIndex = 39;
-            this.buttonDivide.Tag = "3,8";
-            this.buttonDivide.Text = "/";
-            this.buttonDivide.UseVisualStyleBackColor = false;
-            this.buttonDivide.Click += new System.EventHandler(this.button_Click);
-            this.buttonDivide.Enter += new System.EventHandler(this.button_Enter);
-            this.buttonDivide.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonDoubleDot.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonDoubleDot.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDoubleDot.Location = new System.Drawing.Point(620, 324);
+            this.buttonDoubleDot.Name = "buttonDoubleDot";
+            this.buttonDoubleDot.Size = new System.Drawing.Size(70, 70);
+            this.buttonDoubleDot.TabIndex = 39;
+            this.buttonDoubleDot.Tag = "3,8";
+            this.buttonDoubleDot.Text = ":";
+            this.buttonDoubleDot.UseVisualStyleBackColor = false;
+            this.buttonDoubleDot.Click += new System.EventHandler(this.button_Click);
+            this.buttonDoubleDot.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonDoubleDot.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
+            this.buttonDoubleDot.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonDoubleDot.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
             // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(12, 12);
+            this.textBox1.Location = new System.Drawing.Point(12, 42);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(754, 38);
             this.textBox1.TabIndex = 0;
@@ -733,18 +819,41 @@
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
-            // timer1
+            // buttonSlash
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 20;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.buttonSlash.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonSlash.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSlash.Location = new System.Drawing.Point(696, 324);
+            this.buttonSlash.Name = "buttonSlash";
+            this.buttonSlash.Size = new System.Drawing.Size(70, 70);
+            this.buttonSlash.TabIndex = 44;
+            this.buttonSlash.Tag = "3,9";
+            this.buttonSlash.Text = "/";
+            this.buttonSlash.UseVisualStyleBackColor = false;
+            this.buttonSlash.Click += new System.EventHandler(this.button_Click);
+            this.buttonSlash.Enter += new System.EventHandler(this.button_Enter);
+            this.buttonSlash.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button_KeyDown);
+            this.buttonSlash.Leave += new System.EventHandler(this.button_Leave);
+            this.buttonSlash.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.button_PreviewKeyDown);
+            // 
+            // labelTitle
+            // 
+            this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.Location = new System.Drawing.Point(316, 8);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(146, 23);
+            this.labelTitle.TabIndex = 45;
+            this.labelTitle.Text = "Enter URL:";
+            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormKeyboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(777, 528);
-            this.Controls.Add(this.buttonDivide);
+            this.ClientSize = new System.Drawing.Size(777, 562);
+            this.Controls.Add(this.labelTitle);
+            this.Controls.Add(this.buttonSlash);
+            this.Controls.Add(this.buttonDoubleDot);
             this.Controls.Add(this.buttonComma);
             this.Controls.Add(this.buttonDot);
             this.Controls.Add(this.buttonEnter);
@@ -841,9 +950,10 @@
         private System.Windows.Forms.Button buttonEnter;
         private System.Windows.Forms.Button buttonDot;
         private System.Windows.Forms.Button buttonComma;
-        private System.Windows.Forms.Button buttonDivide;
+        private System.Windows.Forms.Button buttonDoubleDot;
         public System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button buttonSlash;
+        private System.Windows.Forms.Label labelTitle;
 
     }
 }

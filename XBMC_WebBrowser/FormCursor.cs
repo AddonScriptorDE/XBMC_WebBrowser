@@ -15,13 +15,6 @@ namespace XBMC_WebBrowser
         public FormCursor()
         {
             InitializeComponent();
-            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            this.BackColor = Color.Transparent;
-        }
-
-        protected override void SetBoundsCore(int x, int y, int width, int height, BoundsSpecified specified)
-        {
-            base.SetBoundsCore(x, y, this.MinimumSize.Width, this.MinimumSize.Height, specified);
         }
     }
 }
