@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,18 +50,25 @@ namespace XBMC_WebBrowser
         private const UInt32 MOUSEEVENTF_MOVE = 0x0001;
         private const UInt32 MOUSEEVENTF_LEFTDOWN = 0x0002;
         private const UInt32 MOUSEEVENTF_LEFTUP = 0x0004;
-        
+        private const int SW_SHOWMAXIMIZED = 3;
+
+        private SHDocVw.WebBrowser nativeBrowser;
+
         [DllImport("User32.dll")]
         private static extern void mouse_event(uint dwFlags, uint dx, uint dy, int dwData, uint dwExtraInf);
         [DllImport("User32.dll")]
         private static extern short GetAsyncKeyState(int vKey);
+        [DllImport("User32.dll")]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+        [DllImport("User32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         public FormMain(String[] args)
         {
             InitializeComponent();
 
             mainTitle = "";
-            mainUrl = "http://www.heise.de";
+            mainUrl = "http://www.heise.de/";
             minMouseSpeed = 10;
             maxMouseSpeed = 10;
             userDataFolder = "";
@@ -154,7 +163,7 @@ namespace XBMC_WebBrowser
             lastMousePositionChange = 0;
             acceleration = minMouseSpeed;
             this.Size = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            if (mainUrl.StartsWith("http://www.lovefilm.de/apps/catalog/module/player/player_popout.mhtml"))
+            if (mainUrl.StartsWith("http://www.lovefilm.de/apps/catalog/module/player/player_popout.mhtml") || mainUrl.StartsWith("http://www.watchever.de/player/"))
             {
                 webBrowser1.ScrollBarsEnabled = false;
             }
@@ -163,20 +172,25 @@ namespace XBMC_WebBrowser
                 Cursor.Hide();
                 formCursor = new FormCursor();
                 String cursorPath = userDataFolder + "\\cursor.png";
+                Bitmap oImage = null;
                 if (File.Exists(cursorPath))
                 {
-                    formCursor.BackgroundImage = Image.FromFile(cursorPath);
+                    oImage = new Bitmap(cursorPath);
                 }
+                else
+                {
+                    oImage = new Bitmap(XBMC_WebBrowser.Properties.Resources.cursorBlue);
+                }
+                formCursor.BackgroundImage = oImage;
                 formCursor.MinimumSize = new System.Drawing.Size(32, 32);
                 formCursor.Size = new System.Drawing.Size(customCursorSize, customCursorSize);
                 formCursor.Location = new Point(Cursor.Position.X + 1, Cursor.Position.Y + 1);
                 formCursor.Show();
             }
             webBrowser1.Navigate(mainUrl);
-            SHDocVw.WebBrowser nativeBrowser = (SHDocVw.WebBrowser)webBrowser1.ActiveXInstance;
+            nativeBrowser = (SHDocVw.WebBrowser)webBrowser1.ActiveXInstance;
             nativeBrowser.NewWindow2 += nativeBrowser_NewWindow2;
-            if (zoom != 100)
-                webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
+            webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
             mouse_event(MOUSEEVENTF_MOVE, 1, 1, 0, 0);
         }
 
@@ -372,7 +386,15 @@ namespace XBMC_WebBrowser
                             formPopup = null;
                         }
                         else
+                        {
+                            Process[] p = Process.GetProcessesByName("xbmc");
+                            if (p.Count() > 0)
+                            {
+                                ShowWindow(p[0].MainWindowHandle, SW_SHOWMAXIMIZED);
+                                SetForegroundWindow(p[0].MainWindowHandle);
+                            }
                             Application.Exit();
+                        }
                     }
                     else if (keys == keyMapZoomIn)
                     {
@@ -515,7 +537,18 @@ namespace XBMC_WebBrowser
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            if (e.Url.AbsolutePath == webBrowser1.Url.AbsolutePath)
+            if (mainUrl.StartsWith("http://www.watchever.de/player/") && webBrowser1.Document.Body.InnerHtml.Contains("<DIV class=einloggen>"))
+            {
+                FormLogin formLogin = new FormLogin();
+                formLogin.ShowDialog();
+                ASCIIEncoding Encode = new ASCIIEncoding();
+                byte[] post = Encode.GetBytes("login=" + formLogin.textBoxEmail.Text + "&password=" + formLogin.textBoxPW.Text + "&remember=rememberMe");
+                string url = "http://www.watchever.de/CN/";
+                string PostHeaders = "Content-Type: application/x-www-form-urlencoded";
+                webBrowser1.DocumentCompleted -= webBrowser1_DocumentCompleted;
+                nativeBrowser.Navigate(url, null, null, post, PostHeaders);
+            }
+            if (zoom != 100 && e.Url.AbsolutePath == webBrowser1.Url.AbsolutePath)
             {
                 System.Threading.Thread.Sleep(100);
                 ((SHDocVw.WebBrowser)webBrowser1.ActiveXInstance).ExecWB(SHDocVw.OLECMDID.OLECMDID_OPTICAL_ZOOM, SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, zoom, IntPtr.Zero);
