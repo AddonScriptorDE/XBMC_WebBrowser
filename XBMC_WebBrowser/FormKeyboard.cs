@@ -33,7 +33,8 @@ namespace XBMC_WebBrowser
                 textBox1.ReadOnly = true;
                 textBox1.TabStop = false;
             }
-        }
+            buttonsToLower();
+        } 
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -61,26 +62,14 @@ namespace XBMC_WebBrowser
         private void button_Click(object sender, EventArgs e)
         {
             String text = ((Button)sender).Text.ToLower();
-            if (text == "<")
-            {
-                if (textBox1.SelectionStart > 0)
-                {
-                    textBox1.SelectionStart--;
-                }
-            }
-            else if (text == ">")
-            {
-                textBox1.SelectionStart++;
-            }
-            else if (text == "space")
+            if (text == "space")
             {
                 textBox1.Text += " ";
                 textBox1.SelectionStart = textBox1.Text.Length;
             }
-            else if (text == "space")
+            else if (text == "shift")
             {
-                textBox1.Text += " ";
-                textBox1.SelectionStart = textBox1.Text.Length;
+                buttonsToUpper();
             }
             else if (text == "remove")
             {
@@ -99,8 +88,9 @@ namespace XBMC_WebBrowser
                 this.Close();
             else
             {
-                textBox1.Text += text;
+                textBox1.Text += ((Button)sender).Text;
                 textBox1.SelectionStart = textBox1.Text.Length;
+                buttonsToLower();
             }
         }
 
@@ -135,12 +125,12 @@ namespace XBMC_WebBrowser
                     int x = Convert.ToInt32(spl[1]);
                     int y = Convert.ToInt32(spl[0]);
 
-                    if (y == 3)
+                    if (y == 4)
                     {
                         lastButtonBottom = (Button)sender;
                         buttonSpace.Focus();
                     }
-                    else if (y == 4)
+                    else if (y == 5)
                         buttonEnter.Focus();
 
                     else
@@ -178,9 +168,9 @@ namespace XBMC_WebBrowser
                         textBox1.Focus();
                         lastButtonTop = (Button)sender;
                     }
-                    if (y == 4)
+                    if (y == 5)
                         lastButtonBottom.Focus();
-                    else if (y == 5)
+                    else if (y == 6)
                         buttonSpace.Focus();
                     else
                     {
@@ -222,7 +212,7 @@ namespace XBMC_WebBrowser
                                 int xNew = Convert.ToInt32(spl2[1]);
                                 int yNew = Convert.ToInt32(spl2[0]);
                                 int mod = 10;
-                                if (y == 4)
+                                if (y == 5)
                                     mod = 3;
                                 if (((x + 1) % mod == xNew) && y == yNew)
                                     ((Button)control).Focus();
@@ -252,7 +242,7 @@ namespace XBMC_WebBrowser
                                 int xNew = Convert.ToInt32(spl2[1]);
                                 int yNew = Convert.ToInt32(spl2[0]);
                                 int mod = 10;
-                                if (y == 4)
+                                if (y == 5)
                                     mod = 3;
                                 if (((x + mod - 1) % mod == xNew) && y == yNew)
                                     ((Button)control).Focus();
@@ -271,6 +261,50 @@ namespace XBMC_WebBrowser
             if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
             {
                 e.IsInputKey = true;
+            }
+        }
+
+        private void buttonsToLower()
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control is Button)
+                {
+                    String[] spl = ((Button)control).Tag.ToString().Split(',');
+                    int y = Convert.ToInt32(spl[0]);
+                    if (y < 4)
+                    {
+                        try
+                        {
+                            ((Button)control).Text = ((Button)control).Text.ToLower();
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+            }
+        }
+
+        private void buttonsToUpper()
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control is Button)
+                {
+                    String[] spl = ((Button)control).Tag.ToString().Split(',');
+                    int y = Convert.ToInt32(spl[0]);
+                    if (y < 4)
+                    {
+                        try
+                        {
+                            ((Button)control).Text = ((Button)control).Text.ToUpper();
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
             }
         }
     }
